@@ -17,3 +17,7 @@ RUN python manage.py collectstatic --noinput
 
 RUN adduser -D djangouser
 USER djangouser
+
+EXPOSE 8000
+
+CMD gunicorn api.app:app -b 0.0.0.0:8000 --reload --log-level debug --access-logfile=- -t 9999

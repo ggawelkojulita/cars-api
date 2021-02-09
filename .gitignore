@@ -2,3 +2,4 @@
 .env
 api/static/*
 *.pyc
+.idea/*

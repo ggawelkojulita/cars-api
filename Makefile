@@ -23,8 +23,8 @@ migrate:
 makemigrations:
 	docker-compose run --rm cli python manage.py makemigrations ${app_name}
 
-reset-db:
-	docker-compose run --rm cli python manage.py reset_db -c --noinput
+flush-db:
+	docker-compose run --rm cli python manage.py flush --noinput
 
 createsuperuser:
 	docker-compose run --rm cli python manage.py createsuperuser
