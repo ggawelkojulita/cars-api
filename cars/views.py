@@ -1,8 +1,8 @@
-from django.db.models import Count
+from django.db.models import Count, Avg
 from rest_framework import generics
 
 from cars.models import Car, Rate
-from cars.serializers import CarSerializer, RateSerializer
+from cars.serializers import CarSerializer, RateSerializer, PopularCarSerializer
 
 
 class CarsListCreateView(generics.ListCreateAPIView):
@@ -33,8 +33,10 @@ class CarsListCreateView(generics.ListCreateAPIView):
         }
     """
     model = Car
-    queryset = Car.objects.all()
     serializer_class = CarSerializer
+
+    def get_queryset(self):
+        return Car.objects.annotate(avg_rate=Avg('rate__value'))
 
 
 class RateCreateView(generics.CreateAPIView):
@@ -72,7 +74,7 @@ class PopularListView(generics.ListAPIView):
         ]
     """
     model = Car
-    serializer_class = CarSerializer
+    serializer_class = PopularCarSerializer
 
     def get_queryset(self):
         return Car.objects.all().annotate(rate_count=Count('rate')).order_by('-rate_count')

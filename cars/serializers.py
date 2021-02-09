@@ -5,9 +5,12 @@ from cars.services import VehiclesService
 
 
 class CarSerializer(serializers.ModelSerializer):
+    avg_rate = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Car
-        fields = "__all__"
+        fields = '__all__'
+        read_only_fields = ('id', 'avg_rate')
 
     def create(self, validated_data):
         make_name = validated_data.pop('make_name')
@@ -27,4 +30,11 @@ class CarSerializer(serializers.ModelSerializer):
 class RateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rate
+        fields = "__all__"
+
+
+class PopularCarSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Car
         fields = "__all__"
