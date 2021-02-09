@@ -1,3 +1,4 @@
+from django.db.models import Count
 from rest_framework import generics
 
 from cars.models import Car, Rate
@@ -49,3 +50,29 @@ class RateCreateView(generics.CreateAPIView):
     """
     model = Rate
     serializer_class = RateSerializer
+
+
+class PopularListView(generics.ListAPIView):
+    """
+        Top cars ranking based on number of rates
+        - - - - - - - - - -
+        Expected URL format: ((API_URL))/popular
+        Method: GET
+
+        Expected response:
+        [
+            {
+                "make_name": "TESLA",
+                "model_name": "Model S"
+            },
+            {
+                ...
+            }
+            ...
+        ]
+    """
+    model = Car
+    serializer_class = CarSerializer
+
+    def get_queryset(self):
+        return Car.objects.all().annotate(rate_count=Count('rate')).order_by('-rate_count')
