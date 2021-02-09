@@ -40,7 +40,7 @@ class CarCreationTest(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_should_save_car(self)-> None:
+    def test_should_save_car(self) -> None:
         data = {
             "make_name": "HONDA",
             "model_name": "Accord"
@@ -50,7 +50,7 @@ class CarCreationTest(TestCase):
 
         self.assertEqual(response.status_code, 201)
 
-    def test_should_fail_for_not_existing_make_name(self)-> None:
+    def test_should_fail_for_not_existing_make_name(self) -> None:
         data = {
             "make_name": "XYZ",
             "model_name": "123"

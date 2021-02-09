@@ -14,9 +14,9 @@ class PopularCarsTest(TestCase):
         car2 = Car.objects.create(make_name="Honda", model_name="Accord")
         car3 = Car.objects.create(make_name="Audi", model_name="A3")
 
-        Rate.objects.create(car=car2, value=5)
-        Rate.objects.create(car=car2, value=5)
-        Rate.objects.create(car=car2, value=5)
+        Rate.objects.create(car=car2, value=1)
+        Rate.objects.create(car=car2, value=1)
+        Rate.objects.create(car=car2, value=1)
         Rate.objects.create(car=car3, value=5)
 
         response = self.client.get(reverse('popular'))
@@ -28,4 +28,3 @@ class PopularCarsTest(TestCase):
         self.assertEqual(results[0]["id"], car2.id)
         self.assertEqual(results[1]["id"], car3.id)
         self.assertEqual(results[2]["id"], car1.id)
-
