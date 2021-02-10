@@ -4,6 +4,10 @@ Cars API let you show list of cars and rate them.
 
 API is deployed on Heroku - https://intense-taiga-74150.herokuapp.com
 
+Example:
+You can use the Postman APP and view a list of cars (https://intense-taiga-74150.herokuapp.com/cars)
+or simply paste the link in your browser - https://intense-taiga-74150.herokuapp.com/cars?format=json
+
 ## Available endpoints
 POST /cars
 * Request body should contain car make and model name
