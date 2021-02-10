@@ -11,13 +11,14 @@ x-app-common: &app-common
   privileged: true
   depends_on:
     - db
-  restart: unless-stopped
-  stdin_open: true
 
 services:
   api:
     <<: *app-common
-#    entrypoint: /app/entrypoint.sh
+    entrypoint: /app/entrypoint.sh
+    restart: on-failure
+    ports:
+      - "8000:8000"
   cli:
     <<: *app-common
     command: echo "Starting cli container..."
