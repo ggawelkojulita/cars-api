@@ -12,19 +12,19 @@ class CarSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('id', 'avg_rate')
 
-    def create(self, validated_data):
-        make_name = validated_data.pop('make_name')
-        model_name = validated_data.pop('model_name')
+    def validate(self, attrs):
+        make_name = attrs.get('make_name')
+        model_name = attrs.get('model_name')
 
         is_correct_make_name = VehiclesService.is_correct_make_name(make_name)
         if not is_correct_make_name:
-            raise ValidationError('Provided make name is invalid')
+            raise ValidationError({'make_name': 'Invalid value'})
 
         is_correct_model_name = VehiclesService.is_correct_model_name(make_name, model_name)
         if not is_correct_model_name:
-            raise ValidationError('Provided model name is invalid')
+            raise ValidationError({'model_name': 'Invalid value'})
 
-        return super().create(validated_data)
+        return attrs
 
 
 class RateSerializer(serializers.ModelSerializer):
